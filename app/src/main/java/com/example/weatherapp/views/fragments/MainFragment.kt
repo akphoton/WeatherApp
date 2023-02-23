@@ -2,28 +2,24 @@ package com.example.weatherapp.views.fragments
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
-import android.content.SharedPreferences
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputType
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapp.R
 import com.example.weatherapp.api.RetrofitHelper
 import com.example.weatherapp.api.WeatherService
 import com.example.weatherapp.databinding.FragmentMainBinding
 import com.example.weatherapp.repository.WeatherRepository
+import com.example.weatherapp.utils.CommonUtils
 import com.example.weatherapp.viewmodels.MainViewModel
 import com.example.weatherapp.viewmodels.MainViewModelFactory
 import com.squareup.picasso.Picasso
@@ -68,6 +64,7 @@ class MainFragment : Fragment() {
             dataBinding.tvWeatherTitle.text = it.weather[0].main
             dataBinding.tvMinTemp.text = "min\n" + it.main?.tempMin.toString() + "°"
             dataBinding.tvMaxTemp.text = "max\n" + it.main?.tempMax.toString() + "°"
+            dataBinding.tvDate.text = CommonUtils.getDate(it.dt.toString(), it.timezone!!.toInt())
         })
 
         dataBinding.llLocation.setOnClickListener(View.OnClickListener {
